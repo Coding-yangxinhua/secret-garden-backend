@@ -1,0 +1,12 @@
+{
+  "button":[
+    {
+      "name":"菜单",
+      "sub_button":[
+        {
+          "type":"click",
+          "name":"我的共享码",
+          "key":"MY_SHARED_CODE"
+        }]
+    }]
+}
