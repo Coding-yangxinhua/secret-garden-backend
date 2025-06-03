@@ -1,7 +1,7 @@
 server:
-  port: 7423
+  port: 4871
   servlet:
-    context-path: /am
+    context-path: /sg
 spring:
   redis:
     # Redis数据库索引（默认为0）
