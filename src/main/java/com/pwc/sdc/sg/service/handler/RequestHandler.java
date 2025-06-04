@@ -3,6 +3,8 @@ package com.pwc.sdc.sg.service.handler;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.pwc.sdc.sg.common.bean.Param;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MultiValueMap;
@@ -22,6 +24,7 @@ public class RequestHandler {
     private static final String URL = "https://wx.fthformal.com/mmhy.php";
 
     private static final HttpHeaders DEFAULT_HEADER;
+    private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
     static {
         DEFAULT_HEADER = new HttpHeaders();
@@ -35,6 +38,7 @@ public class RequestHandler {
         DEFAULT_HEADER.add("Sec-Fetch-Dest", "empty");
         DEFAULT_HEADER.add("Accept-Encoding", "gzip, deflate, br");
         DEFAULT_HEADER.add("Accept-Language", "zh-CN,zh;q=0.9");
+        DEFAULT_HEADER.set("Accept-Charset", "UTF-8");
     }
 
     @Resource
@@ -55,6 +59,8 @@ public class RequestHandler {
         String url = URL + "?dev=master&*=" + requestList.getRequestArr().toJSONString() + "&token=" + token + "&userId=" + userId + "&version=" + version + "&sign=" + requestList.getSign() + "&ti=" + System.currentTimeMillis();
         // 创建请求实体，包含请求头和请求体
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
+        log.info("请求header: {}", JSON.toJSONString(headers));
+        log.info("请求url: {}", url);
         // 发送请求并获取响应
         ResponseEntity<String> response = restTemplate.exchange(
                 url,
@@ -62,6 +68,7 @@ public class RequestHandler {
                 requestEntity,
                 String.class
         );
+        log.info("请求相应: {}", JSON.toJSONString(response));
         return JSON.toJSONString(response);
     }
 }

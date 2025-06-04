@@ -72,14 +72,14 @@
 
   <build>
     <defaultGoal>compile</defaultGoal>
-    <finalName>accounting-murmurs-backend</finalName>
+    <finalName>secret-garden-backend</finalName>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <fork>true</fork>
-          <mainClass>com.pwc.sdc.sg.AccountingMurmursApplication</mainClass>
+          <mainClass>com.pwc.sdc.sg.SecretGardenApplication</mainClass>
         </configuration>
         <executions>
           <execution>
