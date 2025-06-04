@@ -1,5 +1,6 @@
 package com.pwc.sdc.sg.service.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.pwc.sdc.sg.common.bean.Param;
 import org.springframework.http.*;
@@ -57,10 +58,10 @@ public class RequestHandler {
         // 发送请求并获取响应
         ResponseEntity<String> response = restTemplate.exchange(
                 url,
-                HttpMethod.GET, // 根据实际需求设置HTTP方法
+                HttpMethod.GET,
                 requestEntity,
                 String.class
         );
-        return JSONArray.toJSONString(response);
+        return JSON.toJSONString(response);
     }
 }
