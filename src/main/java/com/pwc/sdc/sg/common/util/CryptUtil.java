@@ -24,14 +24,34 @@ public class CryptUtil {
     }
 
     public static String md5(String str) {
-        // 加盐
-        str += KEY;
         // 创建 Md5 对象
         MD5 md5 = new MD5();
         // 加密并获取 32 位 MD5 值
         String md5Hex = md5.digestHex(str);
         // 转为大写
         return md5Hex.toUpperCase();
+    }
+
+    public static String urlEncode(String str) {
+        StringBuilder encodedUrl = new StringBuilder();
+        for (char c : str.toCharArray()) {
+            switch (c) {
+                case '[':
+                    encodedUrl.append("%5B");
+                    break;
+                case ']':
+                    encodedUrl.append("%5D");
+                    break;
+                case '"':
+                    encodedUrl.append("%22");
+                    break;
+                default:
+                    encodedUrl.append(c);
+                    break;
+            }
+        }
+        return encodedUrl.toString();
+
     }
 
 }

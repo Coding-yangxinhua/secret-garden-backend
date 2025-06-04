@@ -3,6 +3,8 @@ package com.pwc.sdc.sg.service.handler;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.pwc.sdc.sg.common.bean.Param;
+import com.pwc.sdc.sg.common.util.CryptUtil;
+import lombok.SneakyThrows;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
@@ -11,10 +13,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
+import java.net.URLEncoder;
+import java.util.*;
 
 /**
  * @author Xinhua X Yang
@@ -47,6 +47,10 @@ public class RequestHandler {
     public String request(HttpHeaders headers, String version, String token, String userId, List<Param> requestList) {
         // header构造
         headers.addAll(DEFAULT_HEADER);
+        headers.setAccept(Arrays.asList(
+                new MediaType("application", "json", java.nio.charset.StandardCharsets.UTF_8),
+                new MediaType("text", "plain", java.nio.charset.StandardCharsets.UTF_8)
+        ));
         String response = "{}";
         for (Param param : requestList) {
             response = request(headers, version, token, userId, param);
@@ -54,9 +58,12 @@ public class RequestHandler {
         return response;
     }
 
+    @SneakyThrows
     private String request(HttpHeaders headers, String version, String token, String userId, Param requestList) {
         // url参数构造
-        String url = URL + "?dev=master&*=" + requestList.getRequestArr().toJSONString() + "&token=" + token + "&userId=" + userId + "&version=" + version + "&sign=" + requestList.getSign() + "&ti=" + System.currentTimeMillis();
+        String url = URL + "?dev=master&*=" + requestList.getRequestArr().toJSONString() +
+                "&token=" + token + "&userId=" + userId + "&version=" + version + "&sign=" + requestList.getSign() + "&ti=" + System.currentTimeMillis() +
+                "&key=";
         // 创建请求实体，包含请求头和请求体
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
         log.info("请求header: {}", JSON.toJSONString(headers));
@@ -69,6 +76,6 @@ public class RequestHandler {
                 String.class
         );
         log.info("请求相应: {}", JSON.toJSONString(response));
-        return JSON.toJSONString(response);
+        return JSON.toJSONString(response.getBody());
     }
 }

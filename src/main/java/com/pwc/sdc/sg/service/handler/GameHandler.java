@@ -76,19 +76,6 @@ public class GameHandler {
     }
 
     /**
-     * 重新签名
-     * @param requestList
-     * @return
-     */
-    private List<String> reSign(List<JSONArray> requestList) {
-        List<String> signs = new ArrayList<>();
-        for (JSONArray jsonArray : requestList) {
-            signs.add(CryptUtil.md5(jsonArray));
-        }
-        return signs;
-    }
-
-    /**
      * 修改数据并复制
      * @param requestArr
      * @param ratioArr

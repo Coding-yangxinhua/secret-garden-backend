@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Xinhua X Yang
@@ -24,7 +25,7 @@ public class ApiController {
     @Resource
     private RequestHandler requestHandler;
 
-    @GetMapping("redirect")
+    @GetMapping("modify")
     public String handleRedirect(
             HttpServletRequest request,
             @RequestHeader(name = "user-agent", required = false) String userAgent,
@@ -40,8 +41,8 @@ public class ApiController {
         List<Param> requestList = gameHandler.handle(userId, request.getRemoteAddr(), data);
         // 发送新请求
         HttpHeaders headers = new HttpHeaders();
-        headers.add("user-agent", userAgent);
-        headers.add("referer", referer);
+        headers.add("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36 MicroMessenger/7.0.20.1781(0x6700143B) NetType/WIFI MiniProgramEnv/Windows WindowsWechat/WMPF WindowsWechat(0x63090c33)XWEB/13639");
+        headers.add("referer", Optional.ofNullable(referer).orElse("https://servicewechat.com/wx8479593d9223cb29/234/page-frame.html"));
         return requestHandler.request(headers, version, token, userId, requestList);
     }
 
