@@ -9,6 +9,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.time.Duration;
 
+/**
+ * @author Xinhua X Yang
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 

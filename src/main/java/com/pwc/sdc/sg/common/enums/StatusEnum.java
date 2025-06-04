@@ -1,12 +1,22 @@
 package com.pwc.sdc.sg.common.enums;
 
-public enum EnableStatus {
+/**
+ * @author Xinhua X Yang
+ */
+
+public enum StatusEnum {
     ENABLE(1),
-    DISABLE(0);
+    DISABLE(0),
+
+    YES(1),
+
+    NO(0),
+
+    ;
 
     private final int value;
 
-    EnableStatus(int value) {
+    StatusEnum(int value) {
         this.value = value;
     }
 

@@ -79,7 +79,7 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
         <configuration>
           <fork>true</fork>
-          <mainClass>com.pwc.sdc.sg.SecretGardenApplication</mainClass>
+          <mainClass>com.pwc.sdc.sg.AccountingMurmursApplication</mainClass>
         </configuration>
         <executions>
           <execution>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pwc.sdc.sg.mapper.UserSubscribeMapper">
+
+    <resultMap id="BaseResultMap" type="com.pwc.sdc.sg.model.UserSubscribe">
+            <id property="id" column="ID" jdbcType="BIGINT"/>
+            <result property="userId" column="USER_ID" jdbcType="BIGINT"/>
+            <result property="subscribeId" column="SUBSCRIBE_ID" jdbcType="BIGINT"/>
+            <result property="validUtil" column="VALID_UTIL" jdbcType="TIMESTAMP"/>
+            <result property="remainingUses" column="REMAINING_USES" jdbcType="INTEGER"/>
+            <result property="enable" column="ENABLE" jdbcType="TINYINT"/>
+            <result property="gmtCreate" column="GMT_CREATE" jdbcType="TIMESTAMP"/>
+            <result property="gmtModified" column="GMT_MODIFIED" jdbcType="TIMESTAMP"/>
+            <result property="deleted" column="DELETED" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,USER_ID,SUBSCRIBE_ID,
+        VALID_UTIL,REMAINING_USES,ENABLE,
+        GMT_CREATE,GMT_MODIFIED,DELETED
+    </sql>
+    <select id="getUserEnableSubscribe" resultType="com.pwc.sdc.sg.model.dto.UserSubscribeDto">
+        SELECT sus.*, ss.NAME AS SUBCRIBE_NAME, ss.RATIO
+        FROM sg_user_subscribe sus
+        INNER JOIN sg_subscribe ss ON sus.SUBSCRIBE_ID = ss.ID AND ss.DELETED = 0
+        WHERE sus.ENABLE = 1
+          AND sus.DELETED = 0
+          AND (VALID_UTIL IS NULL OR VALID_UTIL > NOW())
+          AND (REMAINING_USES = -1 OR REMAINING_USES > 0)
+        LIMIT 1
+    </select>
+</mapper>
