@@ -18,4 +18,6 @@ public class SystemConstant {
     public static final int DATA_INDEX = 1;
 
     public static final int TIMESTAMP_INDEX = 2;
+
+    public static final String URL = "https://wx.fthformal.com/mmhy.php";
 }

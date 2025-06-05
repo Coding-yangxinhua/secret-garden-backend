@@ -2,6 +2,7 @@ package com.pwc.sdc.sg.service.handler;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.pwc.sdc.sg.common.SystemConstant;
 import com.pwc.sdc.sg.common.bean.Param;
 import com.pwc.sdc.sg.common.util.CryptUtil;
 import lombok.SneakyThrows;
@@ -21,8 +22,6 @@ import java.util.*;
  */
 @Service
 public class RequestHandler {
-    private static final String URL = "https://wx.fthformal.com/mmhy.php";
-
     private static final HttpHeaders DEFAULT_HEADER;
     private static final Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
@@ -61,7 +60,7 @@ public class RequestHandler {
     @SneakyThrows
     private String request(HttpHeaders headers, String version, String token, String userId, Param requestList) {
         // url参数构造
-        String url = URL + "?dev=master&*=" + requestList.getRequestArr().toJSONString() +
+        String url = SystemConstant.URL + "?dev=master&*=" + requestList.getRequestArr().toJSONString() +
                 "&token=" + token + "&userId=" + userId + "&version=" + version + "&sign=" + requestList.getSign() + "&ti=" + System.currentTimeMillis() +
                 "&key=";
         // 创建请求实体，包含请求头和请求体

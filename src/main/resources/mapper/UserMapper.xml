@@ -20,5 +20,6 @@
     <select id="getByOpenId" resultType="com.pwc.sdc.sg.model.dto.UserDto">
         SELECT su.ID, su.OPEN_ID, su.USER_NAME
         FROM sg_user su
+        WHERE su.OPEN_ID = #{openId} AND su.DELETED = 0
     </select>
 </mapper>
