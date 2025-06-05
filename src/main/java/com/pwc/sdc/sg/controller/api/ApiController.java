@@ -35,11 +35,8 @@ public class ApiController {
 
     @GetMapping("modify")
     public String handleRedirect(
+            @RequestHeader HttpHeaders headers,
             HttpServletRequest request,
-            HttpServletResponse response,
-            @RequestParam Map<String, String> allParams,
-            @RequestHeader(name = "user-agent", required = false) String userAgent,
-            @RequestHeader(name = "referer", required = false) String referer,
             @RequestParam("token") String token,
             @RequestParam("userId") String userId,
             @RequestParam("version") String version,
@@ -47,9 +44,6 @@ public class ApiController {
         // 修改原请求
         List<Param> requestList = gameHandler.handle(userId, request.getRemoteAddr(), data);
         // 发送新请求
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("User-Agent", userAgent);
-        headers.add("referer", Optional.ofNullable(referer).orElse("https://servicewechat.com/wx8479593d9223cb29/234/page-frame.html"));
         return requestHandler.request(headers, version, token, userId, requestList);
     }
 

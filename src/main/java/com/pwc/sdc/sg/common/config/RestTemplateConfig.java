@@ -52,8 +52,8 @@ public class RestTemplateConfig {
         };
 
         // 设置代理服务器
-        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
-        requestFactory.setProxy(proxy);
+//        Proxy proxy = new Proxy(Proxy.Type.HTTP, new InetSocketAddress("127.0.0.1", 8888));
+//        requestFactory.setProxy(proxy);
 
         return new RestTemplate(requestFactory);
     }
