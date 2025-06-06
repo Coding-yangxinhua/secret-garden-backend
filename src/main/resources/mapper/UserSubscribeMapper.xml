@@ -22,7 +22,7 @@
         GMT_CREATE,GMT_MODIFIED,DELETED
     </sql>
     <select id="getUserEnableSubscribe" resultType="com.pwc.sdc.sg.model.dto.UserSubscribeDto">
-        SELECT sus.*, ss.NAME AS SUBCRIBE_NAME, ss.RATIO, ss.REMAINING_USES
+        SELECT sus.*, ss.NAME AS SUBCRIBE_NAME, ss.RATIO
         FROM sg_user_subscribe sus
         INNER JOIN sg_subscribe ss ON sus.SUBSCRIBE_ID = ss.ID AND ss.DELETED = 0
         WHERE sus.ENABLE = 1
