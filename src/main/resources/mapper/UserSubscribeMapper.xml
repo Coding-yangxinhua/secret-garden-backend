@@ -27,8 +27,9 @@
         INNER JOIN sg_subscribe ss ON sus.SUBSCRIBE_ID = ss.ID AND ss.DELETED = 0
         WHERE sus.ENABLE = 1
           AND sus.DELETED = 0
-          AND (VALID_UTIL IS NULL OR VALID_UTIL > NOW())
-          AND (REMAINING_USES = -1 OR REMAINING_USES > 0)
+          AND (sus.VALID_UTIL IS NULL OR sus.VALID_UTIL > NOW())
+          AND (sus.REMAINING_USES = -1 OR sus.REMAINING_USES > 0)
+          AND sus.USER_ID = #{userId}
         LIMIT 1
     </select>
 </mapper>
