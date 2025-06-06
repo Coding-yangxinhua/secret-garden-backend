@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.pwc.sdc.sg.common.SystemConstant;
 import com.pwc.sdc.sg.common.bean.Param;
-import com.pwc.sdc.sg.common.util.CryptUtil;
 import com.pwc.sdc.sg.model.dto.UserDto;
 import com.pwc.sdc.sg.model.dto.UserSubscribeDto;
 import com.pwc.sdc.sg.service.UserService;
@@ -47,6 +46,7 @@ public class GameHandler {
         Integer remainingUses = enableSubscribe.getRemainingUses();
         if (remainingUses != null && remainingUses > 0) {
             enableSubscribe.setRemainingUses(remainingUses - 1);
+            userSubscribeService.updateUserSubscribe(enableSubscribe);
         }
         // 4. 修改倍率，并重新签名
         return modifyRatio(requestArr, enableSubscribe);

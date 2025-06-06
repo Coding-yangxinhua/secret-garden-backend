@@ -22,7 +22,7 @@ public class UserSubscribeServiceImpl extends ServiceImpl<UserSubscribeMapper, U
     }
 
     @Override
-    public void updateUsrSubscribe(UserSubscribeDto userSubscribeDto) {
+    public void updateUserSubscribe(UserSubscribeDto userSubscribeDto) {
         this.updateById(userSubscribeDto);
     }
 }

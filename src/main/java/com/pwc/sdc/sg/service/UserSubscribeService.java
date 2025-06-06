@@ -19,5 +19,5 @@ public interface UserSubscribeService extends IService<UserSubscribe> {
      */
     UserSubscribeDto getUserEnableSubscribe(Long userId);
 
-    void updateUsrSubscribe(UserSubscribeDto userSubscribeDto);
+    void updateUserSubscribe(UserSubscribeDto userSubscribeDto);
 }
