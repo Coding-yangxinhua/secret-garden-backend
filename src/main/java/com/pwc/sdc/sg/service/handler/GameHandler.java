@@ -43,7 +43,12 @@ public class GameHandler {
         if (enableSubscribe == null) {
             return Collections.emptyList();
         }
-        // 3. 修改倍率，并重新签名
+        // 3. 扣除有效次数
+        Integer remainingUses = enableSubscribe.getRemainingUses();
+        if (remainingUses != null && remainingUses > 0) {
+            enableSubscribe.setRemainingUses(remainingUses - 1);
+        }
+        // 4. 修改倍率，并重新签名
         return modifyRatio(requestArr, enableSubscribe);
     }
 

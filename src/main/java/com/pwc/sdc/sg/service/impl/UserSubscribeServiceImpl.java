@@ -1,7 +1,6 @@
 package com.pwc.sdc.sg.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pwc.sdc.sg.common.enums.StatusEnum;
 import com.pwc.sdc.sg.model.UserSubscribe;
 import com.pwc.sdc.sg.model.dto.UserSubscribeDto;
 import com.pwc.sdc.sg.service.UserSubscribeService;
@@ -20,6 +19,11 @@ public class UserSubscribeServiceImpl extends ServiceImpl<UserSubscribeMapper, U
     @Override
     public UserSubscribeDto getUserEnableSubscribe(Long userId) {
         return baseMapper.getUserEnableSubscribe(userId);
+    }
+
+    @Override
+    public void updateUsrSubscribe(UserSubscribeDto userSubscribeDto) {
+        this.updateById(userSubscribeDto);
     }
 }
 

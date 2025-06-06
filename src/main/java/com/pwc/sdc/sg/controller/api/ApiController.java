@@ -8,6 +8,7 @@ import com.pwc.sdc.sg.service.handler.RequestHandler;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -34,6 +35,7 @@ public class ApiController {
     private RequestHandler requestHandler;
 
     @GetMapping("modify")
+    @Transactional
     public String handleRedirect(
             @RequestHeader HttpHeaders headers,
             HttpServletRequest request,
