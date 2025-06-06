@@ -84,6 +84,8 @@ public class GameHandler {
     private JSONArray copyRequestArr2Str(JSONArray requestArr, JSONArray ratioArr) {
         JSONArray anotherRequestArr = JSON.parseArray(JSON.toJSONString(requestArr));
         anotherRequestArr.getJSONArray(SystemConstant.START_INDEX).getJSONArray(SystemConstant.PARAM_INDEX).set(SystemConstant.DATA_INDEX, JSON.parseArray(ratioArr.toJSONString()));
+        // 更新timeStamp
+        anotherRequestArr.getJSONArray(SystemConstant.START_INDEX).getJSONArray(SystemConstant.PARAM_INDEX).set(SystemConstant.TIMESTAMP_INDEX, System.currentTimeMillis() / 1000);
         return anotherRequestArr;
     }
 }
