@@ -48,29 +48,4 @@ public class ApiController {
         // 发送新请求
         return requestHandler.request(headers, version, token, userId, requestList);
     }
-
-    @SneakyThrows
-    public boolean redirect(String url, @RequestParam Map<String, String> allParams, HttpServletRequest request, HttpServletResponse response) {
-        if (url.contains("harvestNew")) {
-            return false;
-        }
-        // 构造目标 URL
-        StringBuilder targetUrl = new StringBuilder(SystemConstant.URL);
-        if (!allParams.isEmpty()) {
-            targetUrl.append("?");
-            allParams.forEach((key, value) -> targetUrl.append(key).append("=").append(value).append("&"));
-            targetUrl.setLength(targetUrl.length() - 1); // 去掉最后一个 "&"
-        }
-        // 包装响应对象
-        HttpServletResponseWrapper responseWrapper = new HttpServletResponseWrapper(response);
-        // 添加 Header
-        Enumeration<String> headerNames = request.getHeaderNames();
-        while (headerNames.hasMoreElements()) {
-            String name = headerNames.nextElement();
-            responseWrapper.addHeader(name, request.getHeader(name));
-        }
-        // 重定向
-        responseWrapper.sendRedirect(targetUrl.toString());
-        return true;
-    }
 }

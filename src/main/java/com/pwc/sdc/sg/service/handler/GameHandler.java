@@ -3,6 +3,7 @@ package com.pwc.sdc.sg.service.handler;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.pwc.sdc.sg.common.SystemConstant;
+import com.pwc.sdc.sg.common.bean.Auth;
 import com.pwc.sdc.sg.common.bean.Param;
 import com.pwc.sdc.sg.model.dto.UserDto;
 import com.pwc.sdc.sg.model.dto.UserSubscribeDto;
@@ -34,8 +35,7 @@ public class GameHandler {
         if (!"plant.harvestNew".equals(op)) {
             return Collections.emptyList();
         }
-        // 1. 创建或者查询系统用户
-        UserDto user = userService.queryOrCreateUser(openId, ip);
+        UserDto user = Auth.user();
         Long id = user.getId();
         // 2. 查询激活并有效的套餐
         UserSubscribeDto enableSubscribe = userSubscribeService.getUserEnableSubscribe(id);

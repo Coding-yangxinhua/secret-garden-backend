@@ -20,7 +20,7 @@ public enum StatusEnum {
         this.value = value;
     }
 
-    public int value() {
+    public Integer value() {
         return this.value;
     }
 }

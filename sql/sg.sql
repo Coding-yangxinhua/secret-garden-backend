@@ -5,6 +5,7 @@ CREATE TABLE `sg_user` (
        `ID` bigint NOT NULL COMMENT '主键ID',
        `OPEN_ID` char(7) NOT NULL COMMENT '用户游戏ID',
        `USER_NAME` varchar(15) DEFAULT NULL COMMENT '用户微信名',
+       `USER_TYPE` tinyint DEFAULT 1 COMMENT '用户类型 1-普通用户 2-admin',
        `GMT_CREATE` datetime DEFAULT NULL COMMENT '创建时间',
        `GMT_MODIFIED` datetime DEFAULT NULL COMMENT '修改时间',
        `DELETED` tinyint NOT NULL DEFAULT '0' COMMENT '逻辑删除',

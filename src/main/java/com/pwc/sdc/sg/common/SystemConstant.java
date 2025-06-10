@@ -20,4 +20,10 @@ public class SystemConstant {
     public static final int TIMESTAMP_INDEX = 2;
 
     public static final String URL = "https://wx.fthformal.com/mmhy.php";
+
+    public static final String USER_PREFIX = "user:";
+
+    public static final String USER_IP_PREFIX = "user:ip:";
+
+    public static final String LOGIN_EXPIRED = "登录失效，请重新登录游戏并收获一次花";
 }

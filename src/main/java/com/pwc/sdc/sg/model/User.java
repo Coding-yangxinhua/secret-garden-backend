@@ -29,6 +29,7 @@ public class User implements Serializable {
      */
     private String userName;
 
+    private String userType;
     /**
      * 创建时间
      */

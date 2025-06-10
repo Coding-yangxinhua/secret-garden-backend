@@ -2,6 +2,7 @@ package com.pwc.sdc.sg.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pwc.sdc.sg.common.SystemConstant;
 import com.pwc.sdc.sg.model.User;
 import com.pwc.sdc.sg.model.dto.UserDto;
 import com.pwc.sdc.sg.service.UserService;
@@ -22,17 +23,16 @@ import java.util.concurrent.TimeUnit;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    private static final String USER_PREFIX = "user:";
-
     @Resource(name = "stringRedisTemplate")
     private StringRedisTemplate redisTemplate;
 
     @Override
     public UserDto queryOrCreateUser(String openId, String ip) {
         // 从缓存中取用户
-        String key = USER_PREFIX + openId;
+        String userKey = SystemConstant.USER_PREFIX + openId;
+        String userIpKey = SystemConstant.USER_IP_PREFIX + ip;
         String userStr = "";
-        // redisTemplate.opsForValue().get(key);
+        redisTemplate.opsForValue().get(userKey);
         // 从数据库取
         if (!StringUtils.hasText(userStr)) {
             UserDto user = this.getByOpenId(openId);
@@ -47,7 +47,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
             user.setIp(ip);
             // 存入缓存
-//            redisTemplate.opsForValue().set(key, JSON.toJSONString(user), 30, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(userKey, JSON.toJSONString(user), 30, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set(userIpKey, JSON.toJSONString(user), 30, TimeUnit.MINUTES);
             return user;
         } else {
             return JSON.parseObject(userStr, UserDto.class);

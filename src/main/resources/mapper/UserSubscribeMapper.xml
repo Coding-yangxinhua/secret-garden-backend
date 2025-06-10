@@ -21,6 +21,10 @@
         VALID_UTIL,REMAINING_USES,ENABLE,
         GMT_CREATE,GMT_MODIFIED,DELETED
     </sql>
+    <update id="switchUserSubscribe">
+
+    </update>
+
     <select id="getUserEnableSubscribe" resultType="com.pwc.sdc.sg.model.dto.UserSubscribeDto">
         SELECT sus.*, ss.NAME AS SUBCRIBE_NAME, ss.RATIO
         FROM sg_user_subscribe sus
@@ -31,5 +35,13 @@
           AND (sus.REMAINING_USES = -1 OR sus.REMAINING_USES > 0)
           AND sus.USER_ID = #{userId}
         LIMIT 1
+    </select>
+    <select id="listUserSubscribes" resultType="com.pwc.sdc.sg.model.dto.UserSubscribeDto">
+        SELECT sus.*, ss.NAME AS SUBCRIBE_NAME, ss.RATIO
+        FROM sg_user_subscribe sus
+                 INNER JOIN sg_subscribe ss ON sus.SUBSCRIBE_ID = ss.ID AND ss.DELETED = 0
+        WHERE
+          sus.DELETED = 0
+          AND sus.USER_ID = #{userId}
     </select>
 </mapper>
