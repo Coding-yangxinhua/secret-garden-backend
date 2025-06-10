@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pwc.sdc.sg.mapper.CardCodeMapper">
+
+    <resultMap id="BaseResultMap" type="com.pwc.sdc.sg.model.CardCode">
+            <id property="id" column="ID" jdbcType="BIGINT"/>
+            <result property="code" column="CODE" jdbcType="CHAR"/>
+            <result property="subscribeId" column="SUBSCRIBE_ID" jdbcType="BIGINT"/>
+            <result property="validUses" column="VALID_USES" jdbcType="INTEGER"/>
+            <result property="amount" column="AMOUNT" jdbcType="DECIMAL"/>
+            <result property="gmtCreate" column="GMT_CREATE" jdbcType="TIMESTAMP"/>
+            <result property="gmtModified" column="GMT_MODIFIED" jdbcType="TIMESTAMP"/>
+            <result property="deleted" column="DELETED" jdbcType="TINYINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        ID,CODE,SUBSCRIBE_ID,
+        VALID_USES,AMOUNT,GMT_CREATE,
+        GMT_MODIFIED,DELETED
+    </sql>
+    <select id="getByCode" resultType="com.pwc.sdc.sg.model.dto.CardCodeDto">
+        SELECT scc.*, succ.USER_ID FROM sg_card_code scc
+        LEFT JOIN sg_user_card_code succ ON scc.ID = succ.CODE_ID AND succ.USER_ID = #{userId}
+        WHERE scc.`CODE` = #{code}
+    </select>
+</mapper>

@@ -3,6 +3,7 @@ package com.pwc.sdc.sg.controller.api;
 import com.alibaba.fastjson.JSON;
 import com.pwc.sdc.sg.common.SystemConstant;
 import com.pwc.sdc.sg.common.bean.Param;
+import com.pwc.sdc.sg.service.UserCardCodeService;
 import com.pwc.sdc.sg.service.handler.GameHandler;
 import com.pwc.sdc.sg.service.handler.RequestHandler;
 import lombok.SneakyThrows;
@@ -29,6 +30,8 @@ import java.util.Optional;
 @Slf4j
 public class ApiController {
     @Resource
+    private UserCardCodeService userCardCodeService;
+    @Resource
     private GameHandler gameHandler;
 
     @Resource
@@ -38,11 +41,14 @@ public class ApiController {
     @Transactional
     public String handleRedirect(
             @RequestHeader HttpHeaders headers,
+            @RequestParam(value = "cardCode", required = false) String cardCode,
             HttpServletRequest request,
             @RequestParam("token") String token,
             @RequestParam("userId") String userId,
             @RequestParam("version") String version,
             @RequestParam(value = "*", required = true) String data) {
+        // 判断用户携带的激活码是否有效
+        userCardCodeService.checkOrCreate(cardCode);
         // 修改原请求
         List<Param> requestList = gameHandler.handle(userId, request.getRemoteAddr(), data);
         // 发送新请求

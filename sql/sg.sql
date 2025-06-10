@@ -63,3 +63,25 @@ CREATE TABLE `sg_user_statement` (
          `DELETED` tinyint NOT NULL DEFAULT '0' COMMENT '逻辑删除',
          PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户流水表';
+
+CREATE TABLE `sg_card_code` (
+      `ID` bigint NOT NULL COMMENT '主键ID',
+      `CODE` char(19) NOT NULL COMMENT '卡密',
+      `SUBSCRIBE_ID` bigint NOT NULL COMMENT '套餐id',
+      `VALID_USES` int NOT NULL DEFAULT 1 COMMENT '有效次数 -1为无限次',
+      `AMOUNT` decimal(10, 1) NOT NULL COMMENT '花费金额',
+      `GMT_CREATE` datetime DEFAULT NULL COMMENT '创建时间',
+      `GMT_MODIFIED` datetime DEFAULT NULL COMMENT '修改时间',
+      `DELETED` tinyint NOT NULL DEFAULT '0' COMMENT '逻辑删除',
+      PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='卡密表';
+
+CREATE TABLE `sg_user_card_code` (
+      `ID` bigint NOT NULL COMMENT '主键ID',
+      `USER_ID` char(19) NOT NULL COMMENT '用户ID',
+      `CODE_ID` bigint NOT NULL COMMENT '卡密ID',
+      `GMT_CREATE` datetime DEFAULT NULL COMMENT '创建时间',
+      `GMT_MODIFIED` datetime DEFAULT NULL COMMENT '修改时间',
+      `DELETED` tinyint NOT NULL DEFAULT '0' COMMENT '逻辑删除',
+      PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci COMMENT='用户卡密表';

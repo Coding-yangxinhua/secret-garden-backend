@@ -2,6 +2,8 @@ package com.pwc.sdc.sg.controller.api;
 
 import com.pwc.sdc.sg.common.SystemConstant;
 import com.pwc.sdc.sg.common.bean.Param;
+import com.pwc.sdc.sg.common.bean.ResponseEntity;
+import com.pwc.sdc.sg.service.CardCodeService;
 import com.pwc.sdc.sg.service.handler.GameHandler;
 import com.pwc.sdc.sg.service.handler.RequestHandler;
 import lombok.SneakyThrows;
@@ -25,5 +27,11 @@ import java.util.Map;
 @RequestMapping("manager")
 @Slf4j
 public class ManagerController {
-
+    @Resource
+    private CardCodeService cardCodeService;
+    @GetMapping("cardCodeGenerator")
+    public ResponseEntity<?> cardCodeGenerator(Long subscribeId, Integer validUses, Integer count) {
+        List<String> generator = cardCodeService.generator(subscribeId, validUses, count);
+        return ResponseEntity.ok(generator);
+    }
 }

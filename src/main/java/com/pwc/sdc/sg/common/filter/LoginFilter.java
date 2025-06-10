@@ -39,7 +39,7 @@ public class LoginFilter implements Filter {
             }
         } else {
             // 查询缓存是否有用户信息
-            String userIpKey = SystemConstant.USER_IP_PREFIX + remoteAddr;
+            String userIpKey = SystemConstant.USER_IP_PREFIX + "_" + remoteAddr;
             String userStr = redisTemplate.opsForValue().get(userIpKey);
             if (userStr == null || userStr.isEmpty()) {
                 throw new BusinessException(SystemConstant.LOGIN_EXPIRED);
