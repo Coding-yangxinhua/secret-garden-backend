@@ -19,6 +19,9 @@
         VALID_USES,GMT_CREATE,
         GMT_MODIFIED,DELETED
     </sql>
+    <update id="countDown">
+        UPDATE sg_card_code SET VALID_USES = VALID_USES - 1 WHERE ID = #{id}
+    </update>
     <select id="getByCode" resultType="com.pwc.sdc.sg.model.dto.CardCodeDto">
         SELECT scc.*, succ.USER_ID FROM sg_card_code scc
         LEFT JOIN sg_user_card_code succ ON scc.ID = succ.CODE_ID AND succ.USER_ID = #{userId}

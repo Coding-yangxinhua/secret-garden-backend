@@ -87,6 +87,7 @@ public class UserCardCodeServiceImpl extends ServiceImpl<UserCardCodeMapper, Use
         userSubscribe.setRemainingUses(subscribe.getValidUses());
         // 入库
         this.save(userCardCode);
+        cardCodeService.countDown(cardCodeId);
         // 禁用其他启用的订阅
         userSubscribeService.disableByUserId(userId);
         userSubscribeService.save(userSubscribe);

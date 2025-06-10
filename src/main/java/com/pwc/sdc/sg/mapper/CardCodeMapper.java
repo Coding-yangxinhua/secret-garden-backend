@@ -2,7 +2,6 @@ package com.pwc.sdc.sg.mapper;
 
 import com.pwc.sdc.sg.model.CardCode;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.pwc.sdc.sg.model.UserCardCode;
 import com.pwc.sdc.sg.model.dto.CardCodeDto;
 
 /**
@@ -13,6 +12,8 @@ import com.pwc.sdc.sg.model.dto.CardCodeDto;
 */
 public interface CardCodeMapper extends BaseMapper<CardCode> {
     CardCodeDto getByCode(Long userId, String code);
+
+    void countDown(Long id);
 }
 
 

@@ -15,4 +15,6 @@ public interface CardCodeService extends IService<CardCode> {
     CardCodeDto getByCode(Long userId, String code);
 
     List<String> generator(Long subscribeId, Integer validUses, Integer count);
+
+    void countDown(Long id);
 }

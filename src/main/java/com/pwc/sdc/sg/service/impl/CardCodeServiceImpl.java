@@ -60,6 +60,11 @@ public class CardCodeServiceImpl extends ServiceImpl<CardCodeMapper, CardCode>
         this.saveBatch(cardCodes);
         return cardCodes.stream().map(CardCode::getCode).collect(Collectors.toList());
     }
+
+    @Override
+    public void countDown(Long id) {
+        baseMapper.countDown(id);
+    }
 }
 
 
