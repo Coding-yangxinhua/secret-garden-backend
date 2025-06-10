@@ -38,7 +38,7 @@ public class UserSubscribeServiceImpl extends ServiceImpl<UserSubscribeMapper, U
 
     @Override
     public void switchUserSubscribe(Long id, Integer enable) {
-        return baseMapper.switchUserSubscribe(id, enable);
+
     }
 }
 
