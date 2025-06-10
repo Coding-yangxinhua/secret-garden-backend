@@ -62,11 +62,8 @@ public class RequestHandler {
         // url参数构造
         String url = SystemConstant.URL + "?dev=master&*=" + requestList.getRequestArr().toJSONString() +
                 "&token=" + token + "&userId=" + userId + "&version=" + version + "&sign=" + requestList.getSign() + "&ti=" + System.currentTimeMillis() ;
-        log.info("请求url: {}", SystemConstant.URL + "?dev=master&*=" + CryptUtil.urlEncode(requestList.getRequestArr().toJSONString()) +
-                "&token=" + token + "&userId=" + userId + "&version=" + version + "&sign=" + requestList.getSign() + "&ti=" + System.currentTimeMillis());
         // 创建请求实体，包含请求头和请求体
         HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-        log.info("请求header: {}", JSON.toJSONString(headers));
         // 发送请求并获取响应
         ResponseEntity<byte[]> response = restTemplate.exchange(
                 url,

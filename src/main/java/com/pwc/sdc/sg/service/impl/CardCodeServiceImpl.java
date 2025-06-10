@@ -37,7 +37,9 @@ public class CardCodeServiceImpl extends ServiceImpl<CardCodeMapper, CardCode>
         CardCodeDto cardCodeDto;
         if (!StringUtils.hasText(userCardCodeStr)) {
             cardCodeDto = baseMapper.getByCode(userId, code);
-            redisTemplate.opsForValue().set(key, JSON.toJSONString(cardCodeDto), 24, TimeUnit.HOURS);
+            if (cardCodeDto != null && cardCodeDto.getUserId() != null) {
+                redisTemplate.opsForValue().set(key, JSON.toJSONString(cardCodeDto), 24, TimeUnit.HOURS);
+            }
         } else {
             cardCodeDto = JSON.parseObject(userCardCodeStr, CardCodeDto.class);
         }
