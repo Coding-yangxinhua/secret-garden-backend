@@ -40,6 +40,11 @@ public class UserSubscribeServiceImpl extends ServiceImpl<UserSubscribeMapper, U
     public void switchUserSubscribe(Long id, Integer enable) {
 
     }
+
+    @Override
+    public void disableByUserId(Long userId) {
+        baseMapper.disableByUserId(userId);
+    }
 }
 
 

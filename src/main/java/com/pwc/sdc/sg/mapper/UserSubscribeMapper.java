@@ -20,6 +20,7 @@ public interface UserSubscribeMapper extends BaseMapper<UserSubscribe> {
 
     void switchUserSubscribe(Long id, Integer enable);
 
+    void disableByUserId(Long userId);
 }
 
 

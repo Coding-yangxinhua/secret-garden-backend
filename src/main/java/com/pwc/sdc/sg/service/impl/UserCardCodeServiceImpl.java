@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pwc.sdc.sg.common.bean.Auth;
 import com.pwc.sdc.sg.common.enums.StatusEnum;
+import com.pwc.sdc.sg.common.util.StringUtil;
 import com.pwc.sdc.sg.model.Subscribe;
 import com.pwc.sdc.sg.model.UserCardCode;
 import com.pwc.sdc.sg.model.UserSubscribe;
@@ -16,6 +17,7 @@ import com.pwc.sdc.sg.mapper.UserCardCodeMapper;
 import com.pwc.sdc.sg.service.UserSubscribeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -42,6 +44,9 @@ public class UserCardCodeServiceImpl extends ServiceImpl<UserCardCodeMapper, Use
     @Override
     @Transactional
     public void checkOrCreate(String cardCode) {
+        if (!StringUtils.hasText(cardCode)) {
+            return;
+        }
         UserDto user = Auth.user();
         Long userId = user.getId();
         CardCodeDto cardCodeDto = cardCodeService.getByCode(userId, cardCode);
@@ -71,7 +76,7 @@ public class UserCardCodeServiceImpl extends ServiceImpl<UserCardCodeMapper, Use
         // 创建user subscribe记录
         UserSubscribe userSubscribe = new UserSubscribe();
         userSubscribe.setUserId(userId);
-        userSubscribe.setId(subscribeId);
+        userSubscribe.setSubscribeId(subscribeId);
         userSubscribe.setEnable(StatusEnum.ENABLE.value());
         // 设置有效期
         if (subscribe.getValidTime() != -1) {
@@ -82,6 +87,8 @@ public class UserCardCodeServiceImpl extends ServiceImpl<UserCardCodeMapper, Use
         userSubscribe.setRemainingUses(subscribe.getValidUses());
         // 入库
         this.save(userCardCode);
+        // 禁用其他启用的订阅
+        userSubscribeService.disableByUserId(userId);
         userSubscribeService.save(userSubscribe);
     }
 }

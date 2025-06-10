@@ -24,6 +24,9 @@
     <update id="switchUserSubscribe">
 
     </update>
+    <update id="disableByUserId">
+        UPDATE sg_user_subscribe SET `ENABLE` = 0 WHERE USER_ID = #{userId} AND `ENABLE` = 1
+    </update>
 
     <select id="getUserEnableSubscribe" resultType="com.pwc.sdc.sg.model.dto.UserSubscribeDto">
         SELECT sus.*, ss.NAME AS SUBCRIBE_NAME, ss.RATIO

@@ -26,4 +26,6 @@ public interface UserSubscribeService extends IService<UserSubscribe> {
     void updateUserSubscribe(UserSubscribeDto userSubscribeDto);
 
     void switchUserSubscribe(Long id, Integer enable);
+
+    void disableByUserId(Long userId);
 }

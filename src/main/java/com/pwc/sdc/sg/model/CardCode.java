@@ -37,11 +37,6 @@ public class CardCode implements Serializable {
     private Integer validUses;
 
     /**
-     * 花费金额
-     */
-    private BigDecimal amount;
-
-    /**
      * 创建时间
      */
     private Date gmtCreate;
