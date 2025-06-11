@@ -20,7 +20,7 @@
         GMT_MODIFIED,DELETED
     </sql>
     <update id="countDown">
-        UPDATE sg_card_code SET VALID_USES = VALID_USES - 1 WHERE ID = #{id}
+        UPDATE sg_card_code SET VALID_USES = VALID_USES - 1 WHERE ID = #{id} AND VALID_USES != -1
     </update>
     <select id="getByCode" resultType="com.pwc.sdc.sg.model.dto.CardCodeDto">
         SELECT scc.*, succ.USER_ID FROM sg_card_code scc

@@ -47,6 +47,8 @@ public class UserCardCodeServiceImpl extends ServiceImpl<UserCardCodeMapper, Use
         if (!StringUtils.hasText(cardCode)) {
             return;
         }
+        // 去除&符号
+        cardCode = cardCode.replace("&", "");
         UserDto user = Auth.user();
         Long userId = user.getId();
         CardCodeDto cardCodeDto = cardCodeService.getByCode(userId, cardCode);

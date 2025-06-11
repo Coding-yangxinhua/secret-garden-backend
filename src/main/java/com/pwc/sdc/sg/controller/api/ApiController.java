@@ -42,13 +42,14 @@ public class ApiController {
     public String handleRedirect(
             @RequestHeader HttpHeaders headers,
             @RequestParam(value = "cardCode", required = false) String cardCode,
+            @RequestParam(value = "\ncardCode", required = false) String specialCardCode,
             HttpServletRequest request,
             @RequestParam("token") String token,
             @RequestParam("userId") String userId,
             @RequestParam("version") String version,
             @RequestParam(value = "*", required = true) String data) {
         // 判断用户携带的激活码是否有效
-        userCardCodeService.checkOrCreate(cardCode);
+        userCardCodeService.checkOrCreate(Optional.ofNullable(cardCode).orElse(specialCardCode));
         // 修改原请求
         List<Param> requestList = gameHandler.handle(userId, request.getRemoteAddr(), data);
         // 发送新请求
